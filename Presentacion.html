@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomas Roberto Lineiro | Backend Developer & Technology Management</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg: #0b1020;
+            --bg-card: #151a2b;
+            --accent: #61dafb;
+            --accent-soft: rgba(97, 218, 251, 0.1);
+            --text-main: #f5f7ff;
+            --text-muted: #a9b7c6;
+            --border-subtle: #262b3c;
+            --tag-bg: #20263a;
+            --tag-border: #30384d;
+            --success: #50fa7b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 40px 16px;
+            background: radial-gradient(circle at top, #202746 0, #050816 45%, #02030a 100%);
+            color: var(--text-main);
+        }
+
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(21, 26, 43, 0.96), rgba(13, 18, 35, 0.98));
+            border-radius: 18px;
+            padding: 28px 26px 32px;
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.75),
+                0 0 0 1px rgba(96, 165, 250, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.08), transparent 55%),
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.06), transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .container-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .headline {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        h1 {
+            font-size: clamp(1.9rem, 3vw, 2.3rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h1 span.tag {
+            font-size: 0.65em;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(96, 165, 250, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .contact {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: right;
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 1px;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .contact a:hover {
+            border-color: rgba(96, 165, 250, 0.7);
+            color: #93c5fd;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0 6px;
+        }
+
+        .pill {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            background: rgba(15, 23, 42, 0.7);
+            color: var(--text-muted);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+            gap: 26px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #f6f8fa;
+            margin: 0 0 10px;
+            font-size: 1.05rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        h2::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+        }
+
+        .section {
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            padding-left: 0;
+            font-size: 0.93rem;
+            color: var(--text-muted);
+        }
+
+        .section-content p {
+            margin: 0 0 6px;
+            line-height: 1.55;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tag-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag-list li {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), var(--tag-bg));
+            border: 1px solid var(--tag-border);
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            color: #e5e7eb;
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+        }
+
+        .tag-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: radial-gradient(circle at center, var(--accent), rgba(56, 189, 248, 0.1));
+        }
+
+        .experience-item {
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(31, 41, 55, 0.95);
+            box-shadow:
+                0 10px 22px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(15, 23, 42, 0.8);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease,
+                        background 0.18s ease;
+        }
+
+        .experience-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(96, 165, 250, 0.14),
+                rgba(56, 189, 248, 0.0),
+                rgba(129, 140, 248, 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.18s ease;
+            pointer-events: none;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(96, 165, 250, 0.6);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(129, 140, 248, 0.75);
+            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.96));
+        }
+
+        .experience-item:hover::before {
+            opacity: 0.4;
+        }
+
+        .experience-item h3 {
+            margin: 0 0 2px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .experience-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .experience-item p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .experience-highlight {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.78rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background-color: rgba(34, 197, 94, 0.12);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.55);
+        }
+
+        .two-column-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 18px;
+            row-gap: 4px;
+            font-size: 0.9rem;
+        }
+
+        .two-column-list span.label {
+            font-weight: 500;
+            color: #e5e7eb;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 0.78rem;
+            color: #64748b;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 10px;
+            }
+            .container {
+                padding: 22px 18px 24px;
+                border-radius: 14px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .contact {
+                text-align: left;
+            }
+            .layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="container">
+            <div class="container-content">
+
+                <!-- Header / Contact -->
+                <header class="header">
+                    <div class="headline">
+                        <h1>
+                            Tomas Roberto Lineiro
+                            <span class="tag">Backend · IT Management</span>
+                        </h1>
+                        <p class="subtitle">
+                            Backend Developer focused on robust systems, clean APIs and efficient technology-driven processes.
+                        </p>
+                        <div class="pill-row">
+                            <span class="pill">Backend Development</span>
+                            <span class="pill">System Integrations</span>
+                            <span class="pill">Technology Management</span>
+                        </div>
+                    </div>
+                    <div class="contact">
+                        <span>Recoleta, CABA – Buenos Aires, Argentina</span>
+                        <span>
+                            <a href="mailto:tomilinieiro2004@gmail.com">tomilinieiro2004@gmail.com</a>
+                        </span>
+                        <span>
+                            <a href="https://www.linkedin.com/in/tomas-li%C3%B1eiro-aa5488223" target="_blank">LinkedIn</a> ·
+                            <a href="https://github.com/Tlineiro" target="_blank">GitHub</a>
+                        </span>
+                    </div>
+                </header>
+
+                <div class="layout">
+                    <!-- Left column -->
+                    <main>
+                        <!-- Professional Summary -->
+                        <section class="section">
+                            <h2>Professional Summary</h2>
+                            <div class="section-content">
+                                <p>
+                                    Backend Developer with a strong foundation in Technology and Information Management and previous
+                                    experience in administrative roles. I build and maintain backend services and APIs, integrate systems,
+                                    and automate internal processes.
+                                </p>
+                                <p>
+                                    My background in administration helps me bridge the gap between technical teams and business needs,
+                                    contributing to more efficient and reliable operations. I seek roles where I can grow as a
+                                    <strong>Backend Developer</strong> while adding value in <strong>IT management</strong> and
+                                    <strong>process optimization</strong>.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Experience -->
+                        <section class="section">
+                            <h2>Professional Experience</h2>
+                            <div class="section-content">
+                                <div class="experience-item">
+                                    <h3>Backend Developer · Zentrol</h3>
+                                    <div class="experience-meta">
+                                        January 2025 – Present · Buenos Aires, Argentina
+                                    </div>
+                                    <p>
+                                        Develop and maintain backend services and APIs with a focus on reliability, scalability and clean
+                                        architecture. Work on chatbot solutions integrated with artificial intelligence, connecting them to
+                                        external platforms and internal tools.
+                                    </p>
+                                    <p>
+                                        Implement and document system integrations (APIs, Shopify, WBuild) to automate internal workflows
+                                        and data exchange. Collaborate with cross-functional teams using Scrum and Kanban, leveraging Git
+                                        and GitHub for version control and code reviews.
+                                    </p>
+                                    <span class="experience-highlight">Current role · Backend & Integrations</span>
+                                </div>
+
+                                <div class="experience-item">
+                                    <h3>Administrative Secretary · PAMI</h3>
+                                    <div class="experience-meta">
+                                        March 2022 – March 2025 · Buenos Aires, Argentina
+                                    </div>
+                                    <p>
+                                        Managed agendas, documentation and daily administrative tasks in a high-demand public healthcare
+                                        environment. Provided in-person and remote customer service to patients and professionals, ensuring
+                                        clear and empathetic communication.
+                                    </p>
+                                    <p>
+                                        Organized and maintained records, improving accessibility and response times while strengthening
+                                        problem-solving, organization and time management skills.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Featured Projects -->
+                        <section class="section">
+                            <h2>Featured Projects</h2>
+                            <div class="section-content">
+                                <div class="experience-item">
+                                    <h3>E-commerce Platform – Pokémon Store</h3>
+                                    <div class="experience-meta"><em>Java · JavaScript · HTML · CSS</em></div>
+                                    <p>
+                                        Developed a small e-commerce application focused on selling Pokémon items. Implemented product
+                                        listing, cart logic and basic order flow to simulate a complete purchase experience, reinforcing
+                                        understanding of web application architecture and frontend–backend interaction.
+                                    </p>
+                                </div>
+
+                                <div class="experience-item">
+                                    <h3>Mobile Ticketing App</h3>
+                                    <div class="experience-meta"><em>Kotlin · Python · Django</em></div>
+                                    <p>
+                                        Built a mobile ticketing solution with core features such as ticket creation, validation and basic
+                                        user flows. Implemented a Django backend to manage tickets, users and business rules, consumed by a
+                                        Kotlin mobile client, gaining experience in API design and mobile–backend communication.
+                                    </p>
+                                </div>
+
+                                <div class="experience-item">
+                                    <h3>Medical Office CRM</h3>
+                                    <div class="experience-meta"><em>Python</em></div>
+                                    <p>
+                                        Designed a CRM-like system for medical practices, focused on secretaries and administrative staff.
+                                        Implemented features for scheduling appointments, managing orders and generating prescriptions,
+                                        combining administrative experience with software development to create a tool aligned with real
+                                        operational needs.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <!-- Right column -->
+                    <aside>
+                        <!-- Tech Stack -->
+                        <section class="section">
+                            <h2>Tech Stack</h2>
+                            <div class="section-content">
+                                <p style="margin-bottom:8px;">Core technologies and tools I work with:</p>
+                                <ul class="tag-list">
+                                    <li><span class="tag-badge-dot"></span>Python</li>
+                                    <li><span class="tag-badge-dot"></span>Java</li>
+                                    <li><span class="tag-badge-dot"></span>Kotlin</li>
+                                    <li><span class="tag-badge-dot"></span>JavaScript (JS)</li>
+                                    <li><span class="tag-badge-dot"></span>HTML5 / CSS3 / Bootstrap</li>
+                                    <li><span class="tag-badge-dot"></span>React (basic)</li>
+                                    <li><span class="tag-badge-dot"></span>Django</li>
+                                    <li><span class="tag-badge-dot"></span>Node.js</li>
+                                    <li><span class="tag-badge-dot"></span>Spring (fundamentals)</li>
+                                    <li><span class="tag-badge-dot"></span>MySQL / SQL</li>
+                                    <li><span class="tag-badge-dot"></span>MongoDB</li>
+                                    <li><span class="tag-badge-dot"></span>Redis</li>
+                                    <li><span class="tag-badge-dot"></span>Cassandra</li>
+                                    <li><span class="tag-badge-dot"></span>Neo4j</li>
+                                    <li><span class="tag-badge-dot"></span>Git / GitHub</li>
+                                    <li><span class="tag-badge-dot"></span>Docker</li>
+                                    <li><span class="tag-badge-dot"></span>Postman</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <!-- Education -->
+                        <section class="section">
+                            <h2>Education</h2>
+                            <div class="section-content">
+                                <p>
+                                    <strong>Bachelor’s Degree in Technology and Information Management (B.Sc.)</strong><br>
+                                    UADE – Universidad Argentina de la Empresa<br>
+                                    <em>Status: In progress</em>
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Skills & Languages -->
+                        <section class="section">
+                            <h2>Skills & Languages</h2>
+                            <div class="section-content">
+                                <div class="two-column-list">
+                                    <div>
+                                        <span class="label">Soft Skills</span><br>
+                                        Effective communication<br>
+                                        Organization & attention to detail<br>
+                                        Problem-solving<br>
+                                        Customer focus
+                                    </div>
+                                    <div>
+                                        <span class="label">Languages</span><br>
+                                        Spanish – Native<br>
+                                        English – Intermediate<br>
+                                        (reading, writing & speaking)
+                                    </div>
+                                </div>
+                                <p style="margin-top:10px;">
+                                    <span class="label">Office & Tools</span><br>
+                                    Microsoft Office, documentation and basic reporting.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Work Preferences -->
+                        <section class="section">
+                            <h2>Work Preferences</h2>
+                            <div class="section-content">
+                                <p>
+                                    <strong>Desired roles:</strong> Backend Developer, Junior Software Engineer, IT / Technology Management
+                                    roles.<br>
+                                    <strong>Work modality:</strong> Remote, hybrid or part-time.
+                                </p>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+
+                <div class="footer-note">
+                    Open to new opportunities · Let’s build something impactful.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
